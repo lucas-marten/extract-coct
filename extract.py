@@ -52,7 +52,7 @@ def main(date, points, output_dir):
 
 if __name__ == "__main__":
     args = parse_arguments()
-    date = datetime.fromisoformat(args.date)
+    date = datetime.fromisoformat(str(args.date))
     points = args.points
     output_dir = args.output_dir
     main(date, points, output_dir)
