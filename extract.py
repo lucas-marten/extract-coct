@@ -9,7 +9,7 @@ import xarray as xr
 def parse_arguments():
     parser = argparse.ArgumentParser(description="Extract climate data.")
     parser.add_argument("--date", type=str, help="Date in ISO format (YYYY-MM-DD)")
-    parser.add_argument("--point", type=str, help="Path to CSV file with points")
+    parser.add_argument("--points", type=str, help="Path to CSV file with points")
     parser.add_argument(
         "--output", type=str, help="Directory to save the output CSV files"
     )
