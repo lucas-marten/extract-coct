@@ -11,7 +11,7 @@ def parse_arguments():
     parser.add_argument("--date", type=str, help="Date in ISO format (YYYY-MM-DD)")
     parser.add_argument("--points", type=str, help="Path to CSV file with points")
     parser.add_argument(
-        "--output", type=str, help="Directory to save the output CSV files"
+        "--output_dir", type=str, help="Directory to save the output CSV files"
     )
     return parser.parse_args()
 
