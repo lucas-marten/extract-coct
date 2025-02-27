@@ -1,3 +1,4 @@
+#!/airflow/tools/extract-coct/venv/bin/python3
 import argparse
 import os
 from datetime import datetime, timedelta
