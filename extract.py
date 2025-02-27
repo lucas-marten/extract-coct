@@ -20,6 +20,9 @@ def parse_arguments():
 def main(date, points, output_dir):
     points = pd.read_csv(points)
 
+    init = date.strftime('%Y%m%dT00')
+    end = (date + timedelta(days=5)).strftime('%Y%m%dT23')
+
     os.makedirs(output_dir, exist_ok=True)
 
     variables = ["total_precipitation", "2m_air_temperature"]
@@ -32,9 +35,9 @@ def main(date, points, output_dir):
         lons = points.lon.to_list()
         ids = points.name.to_list()
 
-        ds = xr.open_dataarray(path_in)
+        ds = xr.open_dataarray(path_in).sel(time=slice(init, end))
         ds_times = pd.to_datetime(ds.time.values) - timedelta(hours=3)
-
+        print(ds_times)
         dfs = list()
         for i in range(len(ids)):
             prec_values = ds.sel(
