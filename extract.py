@@ -46,7 +46,8 @@ def main(date, points, output_dir):
             df = pd.DataFrame({ids[i]: prec_values}, index=ds_times)
             dfs.append(df)
 
-    path_out = os.path.join(output_dir, f"{variable}.csv")
+    points_name = os.path.basename(points).split('.')[0]
+    path_out = os.path.join(output_dir, f"{points_name}_{variable}.csv")
     os.makedirs(os.path.dirname(path_out), exist_ok=True)
     pd.concat(dfs, axis=1).to_csv(path_out)
     print(f"created: {path_out}")
