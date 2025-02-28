@@ -71,7 +71,6 @@ def main(date, output_dir):
                 df_concat = pd.concat(dfs, axis=1)
                 df_concat.to_excel(writer, sheet_name=variable)
         
-        df_concat.to_excel(path_out)
         outputs.append(path_out)
         print(f"created: {path_out}")
 
