@@ -17,8 +17,8 @@ def parse_arguments():
     return parser.parse_args()
 
 
-def main(date, points, output_dir):
-    points = pd.read_csv(points)
+def main(date, path_points, output_dir):
+    df_points = pd.read_csv(path_points)
 
     init = date.strftime('%Y%m%dT00')
     end = (date + timedelta(days=5)).strftime('%Y%m%dT23')
@@ -31,9 +31,9 @@ def main(date, points, output_dir):
             f"/data/forecast/chimera_as/{variable}/%Y/%j/chimera_as_{variable}_M000_%Y%m%d00.nc"
         )
 
-        lats = points.lat.to_list()
-        lons = points.lon.to_list()
-        ids = points.name.to_list()
+        lats = df_points.lat.to_list()
+        lons = df_points.lon.to_list()
+        ids = df_points.name.to_list()
 
         ds = xr.open_dataarray(path_in).sel(time=slice(init, end))
         ds_times = pd.to_datetime(ds.time.values) - timedelta(hours=3)
@@ -46,7 +46,7 @@ def main(date, points, output_dir):
             df = pd.DataFrame({ids[i]: prec_values}, index=ds_times)
             dfs.append(df)
 
-    points_name = os.path.basename(points).split('.')[0]
+    points_name = os.path.basename(path_points).split('.')[0]
     path_out = os.path.join(output_dir, f"{points_name}_{variable}.csv")
     os.makedirs(os.path.dirname(path_out), exist_ok=True)
     pd.concat(dfs, axis=1).to_csv(path_out)
