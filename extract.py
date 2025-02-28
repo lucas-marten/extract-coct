@@ -42,15 +42,11 @@ def main(date, output_dir):
         path_points = f"/airflow/tools/extract-coct/static/{stack}"
         df_points = pd.read_csv(path_points)
         points_name = os.path.basename(path_points).split(".")[0]
-        path_out = os.path.join(
-            date.strftime(output_dir), f"{points_name}.xlsx"
-        )
-        
+        path_out = os.path.join(date.strftime(output_dir), f"{points_name}.xlsx")
+
         for variable in variables:
-            mode = 'a' if os.path.isfile(path_out) else 'w'
-        
-            print(mode)
-            with pd.ExcelWriter(path_out, mode=mode) as writer:  
+            mode = "a" if os.path.isfile(path_out) else "w"
+            with pd.ExcelWriter(path_out, mode=mode) as writer:
                 path_in = date.strftime(
                     f"/data/forecast/chimera_as/{variable}/%Y/%j/chimera_as_{variable}_M000_%Y%m%d00.nc"
                 )
@@ -70,11 +66,10 @@ def main(date, output_dir):
                     df = pd.DataFrame({ids[i]: prec_values}, index=ds_times)
                     dfs.append(df.round(2))
 
-                
                 os.makedirs(os.path.dirname(path_out), exist_ok=True)
                 df_concat = pd.concat(dfs, axis=1)
                 df_concat.to_excel(writer, sheet_name=variable)
-        
+
         outputs.append(path_out)
         print(f"created: {path_out}")
 
