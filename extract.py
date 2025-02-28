@@ -30,7 +30,7 @@ def main(date, output_dir):
     outputs = list()
     variables = ["total_precipitation", "2m_air_temperature"]
     for stack in stacks:
-        path_points = f"/airflow/tools/extract-coct/points/{stack}"
+        path_points = f"/airflow/tools/extract-coct/static/{stack}"
         df_points = pd.read_csv(path_points)
         for variable in variables:
             path_in = date.strftime(
