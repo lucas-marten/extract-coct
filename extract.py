@@ -47,7 +47,7 @@ def main(date, path_points, output_dir):
             dfs.append(df)
 
         points_name = os.path.basename(path_points).split('.')[0]
-        path_out = os.path.join(output_dir, f"{points_name}_{variable}.csv")
+        path_out = os.path.join(date.strftime(output_dir), f"{points_name}_{variable}.csv")
         os.makedirs(os.path.dirname(path_out), exist_ok=True)
         pd.concat(dfs, axis=1).to_csv(path_out)
         print(f"created: {path_out}")
