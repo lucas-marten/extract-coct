@@ -54,7 +54,7 @@ def run(outputs, subject):
             'type':'application/zip',
             'encoding':'base64',
             'content': 1
-        } for i, outputs in enumerate(outputs)]
+        } for i, output in enumerate(outputs)]
     
     print(attachments)
     
