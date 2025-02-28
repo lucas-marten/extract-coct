@@ -49,6 +49,15 @@ def run(outputs, subject):
             encoded_content = base64.b64encode(file.read()).decode('utf-8')
             encoded_contents.append(encoded_content)
 
+    attachments = [{
+            'filename': outputs[i],
+            'type':'application/zip',
+            'encoding':'base64',
+            'content': encoded_contents[i]
+        } for i, outputs in enumerate(outputs)]
+    
+    print(attachments)
+    
     message = {
         'sendType': 'SMTP_BCC',
         'contacts': emails,
@@ -56,12 +65,7 @@ def run(outputs, subject):
         'body': body,
         'isBodyHTML': False,
         'origin': "script",
-        'attachments': [{
-            'filename': outputs[i],
-            'type':'application/zip',
-            'encoding':'base64',
-            'content': encoded_contents[i]
-        } for i, outputs in enumerate(outputs)]
+        'attachments': attachments
     } 
 
     channel.basic_publish(
