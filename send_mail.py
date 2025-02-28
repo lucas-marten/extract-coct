@@ -20,6 +20,8 @@ def run(outputs, subject):
     configs = {
         "default": [
             {"email": "lucas.marten@climatempo.com.br"},
+            {"email": "priscila.luz@climatempo.com.br"},
+            {"email": "demmily.fernandes@climatempo.com.br"}
         ],
     }
     emails = configs["default"]
