@@ -6,6 +6,8 @@ from datetime import datetime, timedelta
 import pandas as pd
 import xarray as xr
 
+import send_mail
+
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description="Extract climate data.")
@@ -25,6 +27,7 @@ def main(date, path_points, output_dir):
 
     os.makedirs(output_dir, exist_ok=True)
 
+    outputs = list()
     variables = ["total_precipitation", "2m_air_temperature"]
     for variable in variables:
         path_in = date.strftime(
@@ -51,13 +54,14 @@ def main(date, path_points, output_dir):
         os.makedirs(os.path.dirname(path_out), exist_ok=True)
         pd.concat(dfs, axis=1).to_csv(path_out)
         print(f"created: {path_out}")
+        outputs.append(path_out)
 
-    return True
+    return outputs
 
 
 if __name__ == "__main__":
     args = parse_arguments()
     date = datetime.fromisoformat(str(args.date))
-    points = args.points
-    output_dir = args.output_dir
-    main(date, points, output_dir)
+
+    outputs = main(date, args.points, args.output_dir)
+    send_mail.run(outputs, subject='Extração - COCT')
