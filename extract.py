@@ -63,7 +63,7 @@ def main(date, output_dir):
 
             points_name = os.path.basename(path_points).split(".")[0]
             path_out = os.path.join(
-                date.strftime(output_dir), f"{points_name}_{variable}.xlsx"
+                date.strftime(output_dir), f"{points_name}.xlsx"
             )
             os.makedirs(os.path.dirname(path_out), exist_ok=True)
             df_concat = pd.concat(dfs, axis=1)
