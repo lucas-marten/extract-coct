@@ -32,7 +32,7 @@ def main(date, output_dir):
     ]
 
     init = date.strftime("%Y%m%dT00")
-    end = (date + timedelta(days=3)).strftime("%Y%m%dT23")
+    end = (date + timedelta(days=2)).strftime("%Y%m%dT23")
 
     os.makedirs(output_dir, exist_ok=True)
 
