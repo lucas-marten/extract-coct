@@ -45,7 +45,10 @@ def main(date, output_dir):
         path_out = os.path.join(
             date.strftime(output_dir), f"{points_name}.xlsx"
         )
-        with pd.ExcelWriter(path_out) as writer:  
+        mode = 'w' if os.path.isfile(path_out) else 'a'
+        
+        print(mode)
+        with pd.ExcelWriter(path_out, mode=mode) as writer:  
             for variable in variables:
                 path_in = date.strftime(
                     f"/data/forecast/chimera_as/{variable}/%Y/%j/chimera_as_{variable}_M000_%Y%m%d00.nc"
