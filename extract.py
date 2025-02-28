@@ -65,5 +65,5 @@ def main(date, output_dir):
 if __name__ == "__main__":
     args = parse_arguments()
     date = datetime.fromisoformat(str(args.date))
-    outputs = main(date, args.points, args.output_dir)
+    outputs = main(date, args.output_dir)
     send_mail.run(outputs, subject='Extração - COCT')
