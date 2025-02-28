@@ -19,11 +19,20 @@ def parse_arguments():
 
 
 def main(date, output_dir):
-    stacks = ['capitais.csv', 'eptvmg.csv', 'eptvsc.csv', 'rpc.csv',
-                    'tvmorena.csv', 'eptvkp.csv', 'eptvrp.csv', 'rbs.csv', 'tvca.csv']
+    stacks = [
+        "capitais.csv",
+        "eptvmg.csv",
+        "eptvsc.csv",
+        "rpc.csv",
+        "tvmorena.csv",
+        "eptvkp.csv",
+        "eptvrp.csv",
+        "rbs.csv",
+        "tvca.csv",
+    ]
 
-    init = date.strftime('%Y%m%dT00')
-    end = (date + timedelta(days=3)).strftime('%Y%m%dT23')
+    init = date.strftime("%Y%m%dT00")
+    end = (date + timedelta(days=3)).strftime("%Y%m%dT23")
 
     os.makedirs(output_dir, exist_ok=True)
 
@@ -52,8 +61,10 @@ def main(date, output_dir):
                 df = pd.DataFrame({ids[i]: prec_values}, index=ds_times)
                 dfs.append(df)
 
-            points_name = os.path.basename(path_points).split('.')[0]
-            path_out = os.path.join(date.strftime(output_dir), f"{points_name}_{variable}.csv")
+            points_name = os.path.basename(path_points).split(".")[0]
+            path_out = os.path.join(
+                date.strftime(output_dir), f"{points_name}_{variable}.csv"
+            )
             os.makedirs(os.path.dirname(path_out), exist_ok=True)
             pd.concat(dfs, axis=1).to_csv(path_out)
             outputs.append(path_out)
@@ -66,4 +77,4 @@ if __name__ == "__main__":
     args = parse_arguments()
     date = datetime.fromisoformat(str(args.date))
     outputs = main(date, args.output_dir)
-    send_mail.run(outputs, subject='Extração - COCT')
+    send_mail.run(outputs, subject="Extração - COCT")
