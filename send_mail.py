@@ -53,10 +53,9 @@ def run(outputs, subject):
             'filename': outputs[i],
             'type':'application/zip',
             'encoding':'base64',
-            'content': 1
+            'content': encoded_contents[i]
         } for i, output in enumerate(outputs)]
     
-    print(attachments)
     
     message = {
         'sendType': 'SMTP_BCC',
