@@ -48,8 +48,8 @@ def main(date, output_dir):
         mode = 'a' if os.path.isfile(path_out) else 'w'
         
         print(mode)
-        with pd.ExcelWriter(path_out, mode=mode) as writer:  
-            for variable in variables:
+        for variable in variables:
+            with pd.ExcelWriter(path_out, mode=mode) as writer:  
                 path_in = date.strftime(
                     f"/data/forecast/chimera_as/{variable}/%Y/%j/chimera_as_{variable}_M000_%Y%m%d00.nc"
                 )
