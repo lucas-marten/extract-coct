@@ -41,7 +41,10 @@ def main(date, output_dir):
     for stack in stacks:
         path_points = f"/airflow/tools/extract-coct/static/{stack}"
         df_points = pd.read_csv(path_points)
-                
+        points_name = os.path.basename(path_points).split(".")[0]
+        path_out = os.path.join(
+            date.strftime(output_dir), f"{points_name}.xlsx"
+        )
         with pd.ExcelWriter(path_out) as writer:  
             for variable in variables:
                 path_in = date.strftime(
@@ -63,10 +66,7 @@ def main(date, output_dir):
                     df = pd.DataFrame({ids[i]: prec_values}, index=ds_times)
                     dfs.append(df)
 
-                points_name = os.path.basename(path_points).split(".")[0]
-                path_out = os.path.join(
-                    date.strftime(output_dir), f"{points_name}.xlsx"
-                )
+                
                 os.makedirs(os.path.dirname(path_out), exist_ok=True)
                 df_concat = pd.concat(dfs, axis=1)
                 df_concat.to_excel(writer, sheet_name=variable)
