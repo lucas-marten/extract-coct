@@ -20,7 +20,7 @@ def run(outputs, subject):
             {'email': 'lucas.marten@climatempo.com.br'},
         ],
     }
-
+    print(outputs)
     emails = configs['default']
 
     rabbitmq_host = 'rabbitmq.climatempo.io'  # Host do servidor RabbitMQ
@@ -44,7 +44,7 @@ def run(outputs, subject):
 
     encoded_contents = list()
     for output in outputs:
-
+        print(outputs)
         with open(output, "rb") as file:
             encoded_content = base64.b64encode(file.read()).decode('utf-8')
             encoded_contents.append(encoded_content)
@@ -53,7 +53,7 @@ def run(outputs, subject):
             'filename': outputs[i],
             'type':'application/zip',
             'encoding':'base64',
-            'content': encoded_contents[i]
+            'content': 1
         } for i, outputs in enumerate(outputs)]
     
     print(attachments)
