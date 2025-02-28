@@ -43,7 +43,7 @@ def main(date, output_dir):
         df_points = pd.read_csv(path_points)
         points_name = os.path.basename(path_points).split(".")[0]
         path_out = os.path.join(date.strftime(output_dir), f"{points_name}.xlsx")
-
+        os.makedirs(os.path.dirname(path_out), exist_ok=True)
         for variable in variables:
             args = {'path':path_out, 'mode':'a', 'if_sheet_exists':"replace"} if os.path.isfile(path_out) \
                     else {'path':path_out, 'mode':'w', 'if_sheet_exists':None}
@@ -67,7 +67,7 @@ def main(date, output_dir):
                     df = pd.DataFrame({ids[i]: prec_values}, index=ds_times)
                     dfs.append(df.round(2))
 
-                os.makedirs(os.path.dirname(path_out), exist_ok=True)
+                
                 df_concat = pd.concat(dfs, axis=1)
                 df_concat.to_excel(writer, sheet_name=variable)
 
