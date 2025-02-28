@@ -63,12 +63,16 @@ def main(date, output_dir):
 
             points_name = os.path.basename(path_points).split(".")[0]
             path_out = os.path.join(
-                date.strftime(output_dir), f"{points_name}_{variable}.csv"
+                date.strftime(output_dir), f"{points_name}_{variable}.xlsx"
             )
             os.makedirs(os.path.dirname(path_out), exist_ok=True)
-            pd.concat(dfs, axis=1).to_csv(path_out)
-            outputs.append(path_out)
-            print(f"created: {path_out}")
+            df_concat = pd.concat(dfs, axis=1)
+            with pd.ExcelWriter(path_out) as writer:  
+                df_concat.to_excel(writer, sheet_name=variable)
+        
+        df_concat.to_excel(path_out)
+        outputs.append(path_out)
+        print(f"created: {path_out}")
 
     return outputs
 
