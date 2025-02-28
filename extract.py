@@ -18,7 +18,7 @@ def parse_arguments():
     return parser.parse_args()
 
 
-def main(date, path_points, output_dir):
+def main(date, output_dir):
     stacks = ['capitais.csv', 'eptvmg.csv', 'eptvsc.csv', 'rpc.csv',
                     'tvmorena.csv', 'eptvkp.csv', 'eptvrp.csv', 'rbs.csv', 'tvca.csv']
 
@@ -30,7 +30,8 @@ def main(date, path_points, output_dir):
     outputs = list()
     variables = ["total_precipitation", "2m_air_temperature"]
     for stack in stacks:
-        df_points = pd.read_csv(f'/airflow/tools/extract-coct/static/{stack}')
+        path_points = f"/airflow/tools/extract-coct/points/{stack}"
+        df_points = pd.read_csv(path_points)
         for variable in variables:
             path_in = date.strftime(
                 f"/data/forecast/chimera_as/{variable}/%Y/%j/chimera_as_{variable}_M000_%Y%m%d00.nc"
