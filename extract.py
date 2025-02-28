@@ -68,7 +68,7 @@ def main(date, output_dir):
                         longitude=lons[i], latitude=lats[i], method="nearest"
                     ).values
                     df = pd.DataFrame({ids[i]: prec_values}, index=ds_times)
-                    dfs.append(df)
+                    dfs.append(df.round(2))
 
                 
                 os.makedirs(os.path.dirname(path_out), exist_ok=True)
