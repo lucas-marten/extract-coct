@@ -17,6 +17,13 @@ def parse_arguments():
     )
     return parser.parse_args()
 
+def clear_old_files(output_dir):
+
+    for file in os.listdir(output_dir):
+        if file.endswith(".xlsx"):
+            os.remove(os.path.join(output_dir, file))
+
+    return
 
 def main(date, output_dir):
     stacks = [
@@ -35,6 +42,8 @@ def main(date, output_dir):
     end = (date + timedelta(days=2)).strftime("%Y%m%dT23")
 
     os.makedirs(output_dir, exist_ok=True)
+
+    clear_old_files(output_dir)
 
     outputs = list()
     variables = ["total_precipitation", "2m_air_temperature"]
