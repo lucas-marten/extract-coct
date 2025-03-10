@@ -40,6 +40,7 @@ def main(date, output_dir):
 
     init = date.strftime("%Y%m%dT00")
     end = (date + timedelta(days=2)).strftime("%Y%m%dT23")
+    output_dir = date.strftime(output_dir)
 
     os.makedirs(output_dir, exist_ok=True)
 
@@ -51,7 +52,7 @@ def main(date, output_dir):
         path_points = f"/airflow/tools/extract-coct/static/{stack}"
         df_points = pd.read_csv(path_points)
         points_name = os.path.basename(path_points).split(".")[0]
-        path_out = os.path.join(date.strftime(output_dir), f"{points_name}.xlsx")
+        path_out = os.path.join(output_dir, f"{points_name}.xlsx")
         os.makedirs(os.path.dirname(path_out), exist_ok=True)
         for variable in variables:
             args = {'path':path_out, 'mode':'a', 'if_sheet_exists':"replace"} if os.path.isfile(path_out) \
